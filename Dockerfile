@@ -62,7 +62,7 @@ RUN set -x; \
     npm install -g rtlcss
 
 # Install Odoo
-ENV ODOO_VERSION 13.0
+ENV ODOO_VERSION 15.0
 ARG ODOO_RELEASE=20200121
 ARG ODOO_SHA=770d71cfafb9a8f8419b88f8033b964d5742ad57
 RUN set -x; \
@@ -87,7 +87,7 @@ RUN mkdir -p /mnt/extra-addons \
 VOLUME ["/var/lib/odoo", "/mnt/extra-addons"]
 
 # Expose Odoo services
-EXPOSE 8069 8071
+EXPOSE 8069 8069
 
 # Set the default config file
 ENV ODOO_RC /etc/odoo/odoo.conf
