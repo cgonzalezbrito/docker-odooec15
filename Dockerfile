@@ -1,5 +1,5 @@
 #Odoo V15.0
-FROM debian:buster-slim
+FROM debian:bullseye-slim
 MAINTAINER cgonzalezbrito <cgonzalezbrt@gmail.com>
 
 SHELL ["/bin/bash", "-xo", "pipefail", "-c"]
@@ -44,7 +44,7 @@ RUN set -x; \
 
 # install latest postgresql-client
 RUN set -x; \
-        echo 'deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main' > etc/apt/sources.list.d/pgdg.list \
+        echo 'deb http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg main' > etc/apt/sources.list.d/pgdg.list \
         && export GNUPGHOME="$(mktemp -d)" \
         && export GNUPGHOME \
         && repokey='B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8' \
@@ -97,8 +97,11 @@ ENV ODOO_RC /etc/odoo/odoo.conf
 
 COPY wait-for-psql.py /usr/local/bin/wait-for-psql.py
 
-#RUN chown odoo /usr/local/bin/wait-for-psql.py \
-#    && chmod +x /usr/local/bin/wait-for-psql.py
+RUN chown odoo /usr/local/bin/wait-for-psql.py \
+    && chmod +x /usr/local/bin/wait-for-psql.py
+
+RUN chown odoo /entrypoint.sh \
+    && chmod +x /entrypoint.sh
 
 # Set default user when running the container
 USER odoo
